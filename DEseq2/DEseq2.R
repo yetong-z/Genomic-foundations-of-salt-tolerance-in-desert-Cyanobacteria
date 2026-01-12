@@ -80,7 +80,7 @@ for (count_file in count_files) {
   # save results
   output_file <- file.path(result_dir, paste0("deseq2_", comparison_info, ".csv"))
   write.csv(x = resdata, file = output_file)
-  cat("保存归一化建模数据到:", output_file, "\n")
+  cat("save:", output_file, "\n")
   
   # contract DEGs
   out <- cbind(res$log2FoldChange, res$pvalue, res$padj)
@@ -94,21 +94,22 @@ for (count_file in count_files) {
                               paste0("DESeq2_AllResult_", comparison_info, ".csv"))
   write.table(out, all_result_file, sep = ",", quote=F, 
               row.names=T, col.names=T)
-  cat("保存所有结果到:", all_result_file, "\n")
+  cat("save all results:", all_result_file, "\n")
   
   deg_file <- file.path(result_dir, 
                        paste0("DESeq2_DEG_", comparison_info, ".csv"))
   write.table(diff, deg_file, sep = ",", 
               row.names=TRUE, quote=F)
-  cat("保存差异表达基因到:", deg_file, "\n")
+  cat("save DEGs:", deg_file, "\n")
   
   deg_list_file <- file.path(result_dir, 
                             paste0("DESeq2_DEGlist_", comparison_info, ".csv"))
   write.table(rownames(diff), deg_list_file, sep = ",", 
               quote=F, row.names=F, col.names=F)
-  cat("保存差异表达基因列表到:", deg_list_file, "\n")
+  cat("save DEGs expression list:", deg_list_file, "\n")
   
 }
 
 cat("\nDone！Results save in", result_dir, "\n")
+
 
