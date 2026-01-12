@@ -5,7 +5,7 @@ library(factoextra)
 library(FactoMineR)
 library(ggbiplot)
 
-data_path <- "e:/Nostoc盐胁迫/RNA_seq_1week/salt-stress_R/PCA/transcript.tpm.matrix_all.csv"
+data_path <- "RNA_seq_1week/salt-stress_R/PCA/transcript.tpm.matrix_all.csv"
 data <- read.csv(data_path, header = TRUE, row.names = 1)
 
 data_t <- t(data)
@@ -46,6 +46,7 @@ fviz_pca_ind(pca_result1, habillage = groups, shape = 16, mean.point=F,
                          "Y0_5_1d" = "#71cabc", "Y0_5_2d" = "#92a0bd", 
                          "Y0_5_4d" = "#f9c7b8", "Y0_75" = "#bac1d5"))+
   theme(panel.border = element_rect(fill=NA,color="black", size=1, linetype="solid"))
+
 
 
 
