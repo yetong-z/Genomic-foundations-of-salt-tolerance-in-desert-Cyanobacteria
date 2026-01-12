@@ -17,7 +17,3 @@ p_cor <- ggplot(pathway_longdata, aes(factor(pathway, levels = pathway_order), v
   coord_fixed(ratio=1)+
   labs(x = "Pathway", y = "Group", title = "p-value")+
   theme(plot.title = element_text(size = 13,hjust = 0.5))
-
-pathway <- read.csv("CK,carb-1.csv",header = T, sep = ",", check.names = F)
-pathway_longdata <- melt(pathway)
-write.table(pathway_longdata,'CK,carb-2.csv', sep = ',', col.names = NA, quote = F)
