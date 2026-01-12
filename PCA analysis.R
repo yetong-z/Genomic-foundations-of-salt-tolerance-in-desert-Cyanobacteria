@@ -15,7 +15,8 @@ data_t[!is.finite(data_t)] <- 0
 data_t <- data_t[rowSums(data_t) > 0, ]
 data_t <- data_t[, apply(data_t, 2, var) > 0]
 data_log <- log2(data_t + 1)
-
+sample_names <- rownames(data_t)
+groups <- vector("character", length(sample_names))
 for (i in 1:length(sample_names)) {
   name <- sample_names[i]
   if (grepl("^CK", name)) {
@@ -46,6 +47,7 @@ fviz_pca_ind(pca_result1, habillage = groups, shape = 16, mean.point=F,
                          "Y0_5_1d" = "#71cabc", "Y0_5_2d" = "#92a0bd", 
                          "Y0_5_4d" = "#f9c7b8", "Y0_75" = "#bac1d5"))+
   theme(panel.border = element_rect(fill=NA,color="black", size=1, linetype="solid"))
+
 
 
 
