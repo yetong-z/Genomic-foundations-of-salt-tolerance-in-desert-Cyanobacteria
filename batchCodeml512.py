@@ -1,39 +1,3 @@
-'''批量运行codeml
-
-1. 将该脚本复制到工作目录
-2. 在目录下创建一个名为InputFiles的文件夹，并将所有PML文件放进去
-3. 在目录下创建一个名为InputTrees的文件夹，并将所有树文件放进去
-4. 如果是跑BSM分析，执行如下代码：
-    python batchCodeml.py PAML/paml4.9j/bin/codeml -cpu 80 -icode 6 -model 2 -NSsites 2 -omega 2 -kappa 2 -rev M0 -null MAnull > log.txt &
-    ***
-    PAML/paml4.9j/bin/codeml  为codeml的可执行路径
-    -icode 为密码表，一定要设为自己数据对应的密码表
-
-用户可以输入多个序列文件，以及多个树（标记了不同的前景枝）
-输出结果以不同的树（前景枝不同）创建文件夹
-默认的值，设定一下范围
-注意icode等选项要设置对，才能继续跑
-接下来配置自动计算一次MO，然后统计结果，自动校正M0可以选择
-
-程序要求安装scipy
-如果要进行M0校正，需要安装ETE3，而且只能在linux下运行
-首先将pml序列文件放在InputFiles的文件夹，然后把树文件放到InputTrees文件夹
-linux下跑，首先source activate python34
-free-ratio(属于BM的一种，不用标记前景枝：For a tree of s species, is ω different among lineages?):
-python batchCodeml.py /home/zhangdong/PAML/paml4.9e/bin/codeml -icode 6 -model 1 -NSsites 0 -omega 1 -kappa 2 -rev M0 -null M0 > log.txt &
-BSM（必须标记前景枝）:
-python batchCodeml.py /home/zhangdong/PAML/paml4.9e/bin/codeml -icode 6 -model 2 -NSsites 2 -omega 2 -kappa 2 -rev M0 -null MAnull > log.txt &
-BM（必须标记前景枝，Are the foreground branches that you specify more likely to have different ω from background branches?）:
-python batchCodeml.py /home/zhangdong/PAML/paml4.9e/bin/codeml -icode 6 -model 2 -NSsites 0 -omega 2 -kappa 2 -rev M0 -null M0 > log.txt &
-M0（计算每个基因的w值,待验证）
-python batchCodeml.py /home/zhangdong/PAML/paml4.9e/bin/codeml -icode 6 > log.txt &
-
-|tee log.txt将输出重定向到文件,也打印到屏幕
-
-20171206: 新增其他null模型校正。这样就默认用这个校正的null模型来LRT。备择假设是命令里面设置的参数对应的，意思是命令行里面只需要指定备择假设的参数。runBM和M0暂时作废。
-20190525：如果要矫正Kappa和枝长，备择假设和null必须都用M0的结果来矫正
-'''
-
 
 class Factory(object):
 
@@ -562,7 +526,6 @@ if __name__ == "__main__":
     #     dict_codeml_ctl["InputFile"] = j
     #     dict_codeml_ctl["rev"] = myargs.rev
     #     dict_codeml_ctl["null"] = myargs.null
-    #     # 以输入文件名创建文件夹
     #     workDir_each = workDir + os.sep + file_base_prefix
     #     Factory.creat_dir(workDir_each)
     #     dict_codeml_ctl["workDir"] = workDir_each
@@ -575,3 +538,4 @@ if __name__ == "__main__":
         f.write(sum)
 
     print("Done!")
+
