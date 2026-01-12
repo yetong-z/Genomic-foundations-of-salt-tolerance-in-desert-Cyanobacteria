@@ -1,18 +1,4 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-# @Time : 2021/9/15 17:30
-# @Author : "Tong Ye"
-# @Email : 
-# @File : BUSCO.rule
-# @Software: PyCharm
 
-'''
-
-use method：
-    1. running process：
-       snakemake -s BUSCO.rule -p --show-failed-logs --cores 60
-
-'''
 import itertools
 import os
 import re
@@ -234,8 +220,9 @@ rule quast:
         20
     shell:
         "[ ! -d {output} ] && mkdir -p {output}; \n"
-        # 去重
+
         "input_genomes=`echo {input.genomes} | python -c "
         "\"import sys;l=str(sys.stdin.read()).strip('\\n').split(' ');print(' '.join(list(set(l))))\"`; \n"
         # "echo $input_genomes; \n"
         "{params.exec_} -t {threads} --output-dir {output.dir} --circos $input_genomes > {log} 2>&1; \n"
+
